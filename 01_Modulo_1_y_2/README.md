@@ -3,6 +3,8 @@
 Laboratorio práctico en **PySpark** sobre la fuente de la práctica `01_ELT` (API de TVMaze), pensado para la **Databricks Free Edition**.
 Sigue el orden de los slides *"Databricks Módulos 1 y 2 - Data Science (60 min)"*.
 
+> Última actualización: 2026-10-25 · prueba de sincronización con Databricks ✔
+
 ## Cómo está organizado
 
 Un notebook por tema, todos con la misma estructura: objetivo → pasos numerados → "👀 Qué observar" → checkpoint.
