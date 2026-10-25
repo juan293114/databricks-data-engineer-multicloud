@@ -10,13 +10,13 @@ Un notebook por tema, todos con la misma estructura: objetivo → pasos numerado
 | # | Notebook | Min | Slides | Qué demuestra |
 |---|---|---|---|---|
 | 00 | `00_Setup` | — | 18 | Configuración común (se llama con `%run`) |
-| 01 | `01_Plataforma_y_Notebooks` | 12 | 5–18 | Unity Catalog, magic commands, cómputo, particiones, estado, widgets, secretos |
-| 02 | `02_Ingesta_RAW` | 10 | 3, 6, 27 | API → archivos JSON en un Volumen, carga idempotente |
-| 03 | `03_DataFrames` | 18 | 20–23 | Distribuido, inmutable, lazy, `explain()`, shuffle, inferir vs esquema explícito |
-| 04 | `04_Formatos_CSV_Parquet_Delta` | 15 | 24–26 | Tamaño, tipos, lectura columnar, `_delta_log`, ACID, time travel |
+| 01 | `01_Plataforma_y_Notebooks` | 10 | 5–18 | Unity Catalog, magic commands, cómputo, particiones, estado, widgets, secretos |
+| 02 | `02_Ingesta_RAW` | 8 | 3, 6, 27 | API → archivos JSON en un Volumen, carga idempotente |
+| 03 | `03_DataFrames` | 16 | 20–23 | Distribuido, inmutable, lazy, `explain()`, shuffle, inferir vs esquema explícito |
+| 04 | `04_Formatos_CSV_Parquet_Delta` | 23 | 24–26 + mantenimiento Delta | Tamaño, tipos, lectura columnar, `_delta_log`, ACID, time travel, `OPTIMIZE`, `ZORDER BY`, `VACUUM` |
 | 05 | `05_Bronze_multiples_archivos` | 10 | 27–28 | Comodines, `_metadata.file_path`, `append` a Delta |
-| 06 | `06_Problemas_de_ingesta` | 12 | 29 | Modos de lectura, `mergeSchema`, `MERGE` / carga idempotente |
-| 07 | `07_Silver_y_Gold` | 10 | 28 | Medallón con PySpark, reconstrucción desde Bronze |
+| 06 | `06_Problemas_de_ingesta` | 11 | 29 | Modos de lectura, `mergeSchema`, `MERGE` / carga idempotente |
+| 07 | `07_Silver_y_Gold` | 9 | 28 | Medallón con PySpark, reconstrucción desde Bronze |
 | 08 | `08_Lakehouse_y_Cierre` | 10 | 3, 6–8, 31 | Tres perfiles/una tabla, gobierno, quiz, retos |
 | | **Total** | **97** (+3 de margen) | | |
 
