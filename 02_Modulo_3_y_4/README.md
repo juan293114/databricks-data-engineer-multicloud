@@ -9,7 +9,7 @@ API TVMaze ─► RAW (JSON por día en un Volumen) ─► BRONZE ─► SILVER 
                               Unity Catalog gobierna todo: workspace.lab_tvmaze_m34
 ```
 
-- **Auto Loader por lotes** (`trigger(availableNow=True)`) lleva a `bronze_schedule` solo los archivos nuevos: cada ejecución procesa lo pendiente y se detiene. Lectura y escritura van en dos funciones separadas.
+- **Auto Loader por lotes** (`trigger(availableNow=True)`) lleva a `bronze_schedule` solo los archivos nuevos: cada ejecución procesa lo pendiente y se detiene. Lectura y escritura van en dos funciones separadas, y la escritura es un **upsert**: cada lote entra con `MERGE` por `id` (`foreachBatch`), así una corrección actualiza la fila en vez de duplicarla.
 - **Change Data Feed** lleva a `silver_episodes` solo los cambios de bronze, y a `gold_network_daily` solo las claves afectadas de silver.
 - **Unity Catalog** se recorre al final con lo que el pipeline construyó.
 
@@ -21,7 +21,7 @@ Un notebook por tema, con la misma estructura del laboratorio anterior: objetivo
 |---|---|---|---|---|
 | 00 | `00_Setup` | — | — | Configuración y funciones del pipeline (`run_bronze`, `build_silver`, `build_gold`) |
 | 01 | `01_RAW_API_a_Volumen` | 8 | 4, 20 | API → un JSON por día en el Volumen (idempotente) |
-| 02 | `02_Bronze_Auto_Loader` | 15 | 20–22 | `cloudFiles`: lectura y escritura separadas, checkpoint, `cloud_files_state`, re-ejecución sin duplicados, `_rescued_data` |
+| 02 | `02_Bronze_Auto_Loader` | 15 | 20–22 | `cloudFiles`: lectura y escritura separadas, escritura con `foreachBatch` + `MERGE` (upsert), checkpoint, `cloud_files_state`, re-ejecución sin duplicados, una corrección que actualiza, `_rescued_data` |
 | 03 | `03_Silver_con_CDF` | 15 | 9–12, 17–19 | `table_changes`, `_change_type`, `MERGE`, `pipeline_state`, un `UPDATE` y un `DELETE` que viajan por el CDF |
 | 04 | `04_Gold_con_CDF` | 12 | 19 | Claves afectadas, recálculo parcial, `MERGE`, comprobación contra el cálculo completo |
 | 05 | `05_Time_Travel_y_Mantenimiento` | 12 | 6–8, 13–16 | `DESCRIBE HISTORY`, `VERSION AS OF`, `RESTORE`, `OPTIMIZE ZORDER BY`, `VACUUM`, `DeltaTable` |
