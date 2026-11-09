@@ -103,5 +103,6 @@ un pipeline activo por tipo de pipeline y salida a internet restringida (la API 
 | `Table or view not found` | Falta correr un notebook previo | Revisa "Requiere" al inicio del notebook |
 | El email sale como `***` o faltan suscriptores | La máscara o el filtro del notebook 02 siguen puestos | Ejecuta el paso 7 del notebook 02 |
 | El pipeline tarda en arrancar | El cómputo serverless se está encendiendo | Espera: la primera ejecución toma unos minutos |
+| El pipeline falla con *already managed by pipeline* | Se borró el pipeline en la interfaz: sus tablas `dlt_` no se borran solas y bloquean al pipeline nuevo | Ejecuta el paso 0 del notebook 06 (`reset_pipeline()`), que borra el pipeline y sus tablas |
 | En el notebook 08, `version_del_warehouse` sale vacía | El notebook está conectado al cómputo *Serverless* | Cambia el cómputo a **SQL warehouses → Serverless Starter Warehouse** |
 | El linaje o la auditoría con SQL no muestran lo de hoy | Las tablas del sistema llegan con retraso (hasta unos 20 minutos) | Vuelve a ejecutar la celda más tarde, o mira **Catalog → tabla → Lineage** |
