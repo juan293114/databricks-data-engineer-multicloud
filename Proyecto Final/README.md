@@ -7,7 +7,7 @@ Pipeline incremental en **Databricks** bajo arquitectura **Medallion (RAW → Br
 ## Arquitectura del Pipeline
 
 ```text
-API Trafpay (GetTransacionByID)
+API (GetTransacionByID)
         │
         ▼
 [01] Ingesta_RAW.py ──▶ /Volumes/<catalog>/trx_mifare/raw_trx_mifare/uses/AAAA/MM/DD/*.json
