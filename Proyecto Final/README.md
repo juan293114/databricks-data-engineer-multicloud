@@ -1,4 +1,4 @@
-# Pipeline Medallion · Usos Mifare (Trafpay API) en Databricks
+# Pipeline Medallion · Usos (API) en Databricks
 
 Pipeline incremental de ingeniería de datos en **Databricks** bajo arquitectura **Medallion (RAW → Bronze → Silver → Gold)** para la ingesta, estandarización y agregación de transacciones desde la API y catálogos maestros en **Excel**. Construido sobre **Unity Catalog**, **Delta Lake**, **Auto Loader**, **Change Data Feed (CDF)**, **Liquid Clustering** y **Serverless Compute**.
 
