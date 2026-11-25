@@ -26,7 +26,7 @@ def read_cdf(table_name):
         spark.read
         .format("delta")
         .option("readChangeFeed", "true")
-        .option("startingVersion", 0)  # <-- Obligatorio para leer CDF desde el inicio
+        .option("startingVersion", 0)  
         .table(table_name)
         .filter(F.col("_change_type").isin("insert", "update_postimage"))
         .drop("_change_type", "_commit_version", "_commit_timestamp")
@@ -39,7 +39,7 @@ def write_table(df, table_name):
         .format("delta")
         .mode("overwrite")
         .option("overwriteSchema", "true")
-        .saveAsTable(table_name)  # <-- Sin .option("path") para Unity Catalog
+        .saveAsTable(table_name)  
     )
 
 

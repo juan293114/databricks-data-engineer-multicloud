@@ -4,15 +4,14 @@
 # environment_version = "6"
 # ///
 # MAGIC %md
-# MAGIC # B_Bronze - Auto Loader + Delta + CDF
+# MAGIC # B_Bronze - Auto Loader 
 # MAGIC
-# MAGIC Carga incremental desde RAW hacia tablas Delta Bronze utilizando Auto Loader.
-# MAGIC Se habilita Change Data Feed (CDF) en cada tabla para el consumo posterior de Silver.
 
 # COMMAND ----------
 
 from pyspark.sql.functions import col, current_timestamp
 
+# Definir las rutas
 CATALOG = "workspace"
 BRONZE_SCHEMA = f"{CATALOG}.bronze"
 RAW_BASE = "/Volumes/workspace/default/filestore/tables/raw"
@@ -53,36 +52,8 @@ TABLES = {
         "schema": f"{SCHEMA_BASE}/sales/",
     },
 }
-
-
-def ensure_cdf_table(cfg):
-    """Crea la tabla Delta administrada vacía con CDF habilitado."""
-    full_source_path = f"{RAW_BASE}/{cfg['file_pattern']}"
-    if not spark.catalog.tableExists(cfg["table"]):
-        schema_df = (
-            spark.read
-            .option("header", "true")
-            .option("inferSchema", "true")
-            .csv(full_source_path)
-            .limit(0)
-            .withColumn("ingestion_timestamp", current_timestamp())
-            .withColumn("source_file", col("_metadata.file_path"))
-        )
-        (
-            schema_df.write
-            .format("delta")
-            .option("delta.enableChangeDataFeed", "true")
-            .mode("overwrite")
-            .saveAsTable(cfg["table"])
-        )
-    else:
-        spark.sql(
-            f"ALTER TABLE {cfg['table']} SET TBLPROPERTIES (delta.enableChangeDataFeed = true)"
-        )
-
-
+#funcion ingesta del autoloader
 def ingest_with_autoloader(cfg):
-    ensure_cdf_table(cfg)
 
     df = (
         spark.readStream
@@ -108,16 +79,13 @@ def ingest_with_autoloader(cfg):
     )
     query.awaitTermination()
 
-
 for name, cfg in TABLES.items():
     print(f"Iniciando Bronze: {name}")
     ingest_with_autoloader(cfg)
     print(f"Bronze OK: {cfg['table']}")
 
+
 print("BRONZE - Auto Loader finalizado correctamente")
-
-
-
 
 # COMMAND ----------
 
