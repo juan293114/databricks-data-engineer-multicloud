@@ -151,11 +151,6 @@ print(
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from workspace.bronze.customers where customer_id='C000001'
-
-# COMMAND ----------
-
-# MAGIC %sql
 # MAGIC SELECT
 # MAGIC     source_file,
 # MAGIC     COUNT(*) AS cantidad
@@ -168,4 +163,4 @@ print(
 # MAGIC %sql
 # MAGIC SELECT *
 # MAGIC FROM workspace.bronze.customers
-# MAGIC WHERE source_file LIKE '%customers_new.csv';
+# MAGIC WHERE source_file LIKE '%customers_y.csv';

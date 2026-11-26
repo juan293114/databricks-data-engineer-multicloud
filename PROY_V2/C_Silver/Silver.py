@@ -326,14 +326,14 @@ print(
 # MAGIC     loyalty_member,
 # MAGIC     join_date
 # MAGIC FROM workspace.bronze.customers
-# MAGIC WHERE source_file LIKE '%customers_new.csv';
+# MAGIC WHERE source_file LIKE '%customers_y.csv';
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC UPDATE workspace.bronze.customers
-# MAGIC SET age = 56
-# MAGIC WHERE customer_id = 'C050007';
+# MAGIC SET age =18
+# MAGIC WHERE customer_id = 'C000015';
 
 # COMMAND ----------
 
@@ -348,5 +348,6 @@ print(
 # MAGIC     'workspace.bronze.customers',
 # MAGIC     0
 # MAGIC )
-# MAGIC WHERE customer_id = 'C050007'
-# MAGIC ORDER BY _commit_version;
+# MAGIC WHERE customer_id = 'C000015'
+# MAGIC ORDER BY _commit_version DESC
+# MAGIC LIMIT 2;
